@@ -3,7 +3,12 @@
 
 This project is a copy of the AirBnB website.
 
+## Authors
 
+- [@AplusJS](https://www.github.com/octokatherine)
+
+
+- [@AyoubMotei](https://github.com/AyoubMotei)
 ## Steps
 
 ### 1. The console
@@ -19,7 +24,7 @@ This abstraction will also allow you to change the type of storage easily withou
 
 The console will be a tool to validate this storage engine
 
-![App Screenshot](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/815046647d23428a14ca.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20230811%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230811T155758Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=85a83bb5b633de6e1c7b0210dc4328b28b6e6dd794ad64970ee3b0b9b94cf16c)
+![step screenshot](https://s3.amazonaws.com/alx-intranet.hbtn.io/uploads/medias/2018/6/815046647d23428a14ca.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUSBVO6H7D%2F20230811%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230811T155758Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=85a83bb5b633de6e1c7b0210dc4328b28b6e6dd794ad64970ee3b0b9b94cf16c)
 #### Run The console Locally
 
 Clone the project
