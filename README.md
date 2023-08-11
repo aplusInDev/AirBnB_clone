@@ -5,7 +5,7 @@ This project is a copy of the AirBnB website.
 
 ## Authors
 
-- [@AplusJS](https://www.github.com/octokatherine)
+- [@AplusJS](https://github.com/aplusJsDev)
 
 
 - [@AyoubMotei](https://github.com/AyoubMotei)
