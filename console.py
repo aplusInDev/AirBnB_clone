@@ -51,30 +51,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
-    def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id"""
-        if not arg:
-            print("** class name missing **")
-            return
-
-        args = arg.split()
-        class_name = args[0]
-        if class_name not in valid_classes:
-            print("** class doesn't exist **")
-            return
-
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-
-        key = f"{class_name}.{args[1]}"
-        all_objs = storage.all()
-        if key in all_objs:
-            del all_objs[key]
-            storage.save()
-        else:
-            print("** no instance found **")
-
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
         if not arg:
@@ -217,6 +193,50 @@ class HBNBCommand(cmd.Cmd):
             key = f"{class_name}.{instance_id}"
             if key in storage.all():
                 print(storage.all()[key])
+            else:
+                print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
+
+
+    def do_State_destroy(self, arg):
+        """Deletes a State instance"""
+        self.do_destroy("State " + arg)
+
+    def do_City_destroy(self, arg):
+        """Deletes a City instance"""
+        self.do_destroy("City " + arg)
+
+    def do_Amenity_destroy(self, arg):
+        """Deletes an Amenity instance"""
+        self.do_destroy("Amenity " + arg)
+
+    def do_Place_destroy(self, arg):
+        """Deletes a Place instance"""
+        self.do_destroy("Place " + arg)
+
+    def do_Review_destroy(self, arg):
+        """Deletes a Review instance"""
+        self.do_destroy("Review " + arg)
+
+    def do_destroy(self, arg):
+        """Deletes an instance based on the class name and id"""
+        if not arg:
+            print("** class name missing **")
+            return
+
+        args = arg.split()
+        class_name = args[0]
+        if class_name in self.classes:
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+
+            instance_id = args[1]
+            key = f"{class_name}.{instance_id}"
+            if key in storage.all():
+                del storage.all()[key]
+                storage.save()
             else:
                 print("** no instance found **")
         else:
