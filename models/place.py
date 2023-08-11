@@ -20,7 +20,8 @@ class Place(BaseModel):
     number_rooms: int = 0
     # A public class attribute that stores the number of bathrooms of the place
     number_bathrooms: int = 0
-    # A public class attribute that stores the maximum number of guests of the place
+    # A public class attribute that stores the maximum number of guests of
+    # the place
     max_guest: int = 0
     # A public class attribute that stores the price by night of the place
     price_by_night: int = 0
