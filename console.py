@@ -51,37 +51,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
-    def do_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        if not arg:
-            print("** class name missing **")
-            return
-
-        args = arg.split()
-        class_name = args[0]
-        if class_name not in valid_classes:
-            print("** class doesn't exist **")
-            return
-
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-
-        key = f"{class_name}.{args[1]}"
-        all_objs = storage.all()
-        if key in all_objs:
-            obj = all_objs[key]
-            if len(args) < 3:
-                print("** attribute name missing **")
-                return
-            if len(args) < 4:
-                print("** value missing **")
-                return
-            setattr(obj, args[2], args[3])
-            obj.save()
-        else:
-            print("** no instance found **")
-
     def do_BaseModel_all(self, arg):
         """Prints all string representation of all instances"""
         self.do_all(arg)
@@ -198,7 +167,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-
     def do_State_destroy(self, arg):
         """Deletes a State instance"""
         self.do_destroy("State " + arg)
@@ -237,6 +205,66 @@ class HBNBCommand(cmd.Cmd):
             if key in storage.all():
                 del storage.all()[key]
                 storage.save()
+            else:
+                print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
+
+
+    def do_State_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        self.do_update("State " + arg)
+
+
+    def do_City_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        self.do_update("City " + arg)
+
+
+    def do_Amenity_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        self.do_update("Amenity " + arg)
+
+
+    def do_Place_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        self.do_update("Place " + arg)
+
+
+    def do_Review_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        self.do_update("Review " + arg)
+
+
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id"""
+        if not arg:
+            print("** class name missing **")
+            return
+
+        args = arg.split()
+        class_name = args[0]
+        if class_name in self.classes:
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+
+            instance_id = args[1]
+            key = f"{class_name}.{instance_id}"
+            if key in storage.all():
+                instance = storage.all()[key]
+                if len(args) < 3:
+                    print("** attribute name missing **")
+                    return
+
+                attr_name = args[2]
+                if len(args) < 4:
+                    print("** value missing **")
+                    return
+
+                attr_value = args[3]
+                setattr(instance, attr_name, attr_value)
+                instance.save()
             else:
                 print("** no instance found **")
         else:
