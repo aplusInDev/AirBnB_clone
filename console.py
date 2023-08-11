@@ -130,22 +130,50 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def do_BaseModel_all(self, arg):
+        """Prints all string representation of all instances"""
+        self.do_all(arg)
+
+    def do_User_all(self, arg):
+        """Prints all string representation of all User instances"""
+        self.do_all(arg)
+
+    def do_Place_all(self, arg):
+        """Prints all string representation of all Place instances"""
+        self.do_all(arg)
+
+    def do_State_all(self, arg):
+        """Prints all string representation of all State instances"""
+        self.do_all(arg)
+
+    def do_City_all(self, arg):
+        """Prints all string representation of all City instances"""
+        self.do_all(arg)
+
+    def do_Amenity_all(self, arg):
+        """Prints all string representation of all Amenity instances"""
+        self.do_all(arg)
+
+    def do_Review_all(self, arg):
+        """Prints all string representation of all Review instances"""
+        self.do_all(arg)
+
     def do_all(self, arg):
-        """Prints all string representations of all instances"""
-        args = arg.split()
-        if not args or args[0] in valid_classes:
-            all_objs = storage.all()
-            objs_list = []
-            if args:
-                class_name = args[0]
-                for key, obj in all_objs.items():
-                    if class_name in key:
-                        objs_list.append(str(obj))
-            else:
-                objs_list = [str(obj) for obj in all_objs.values()]
-            print(objs_list)
+        """Prints all string representation of all instances"""
+        if not arg:
+            print([str(obj) for obj in storage.all().values()])
         else:
-            print("** class doesn't exist **")
+            args = arg.split()
+            if args[0] not in HBNBCommand.valid_classes:
+                print("** class doesn't exist **")
+                return
+            print(
+                [
+                    str(obj)
+                    for obj in storage.all().values()
+                    if obj.__class__.__name__ == args[0]
+                ]
+            )
 
 
 if __name__ == "__main__":
