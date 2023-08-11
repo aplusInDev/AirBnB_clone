@@ -51,30 +51,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
         print(new_instance.id)
 
-    def do_show(self, arg):
-        """Prints the string representation of an instance"""
-        if not arg:
-            print("** class name missing **")
-            return
-
-        args = arg.split()
-        class_name = args[0]
-        if class_name not in valid_classes:
-            print("** class doesn't exist **")
-            return
-
-        if len(args) < 2:
-            print("** instance id missing **")
-            return
-
-        key = f"{class_name}.{args[1]}"
-        all_objs = storage.all()
-        if key in all_objs:
-            obj = all_objs[key]
-            print(obj)
-        else:
-            print("** no instance found **")
-
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
         if not arg:
@@ -201,6 +177,48 @@ class HBNBCommand(cmd.Cmd):
         if class_name in self.valid_classes:
             instances = storage.count(class_name)
             print(instances)
+        else:
+            print("** class doesn't exist **")
+
+    def do_State_show(self, arg):
+        """Prints the string representation of a State instance"""
+        self.do_show("State " + arg)
+
+    def do_City_show(self, arg):
+        """Prints the string representation of a City instance"""
+        self.do_show("City " + arg)
+
+    def do_Amenity_show(self, arg):
+        """Prints the string representation of an Amenity instance"""
+        self.do_show("Amenity " + arg)
+
+    def do_Place_show(self, arg):
+        """Prints the string representation of a Place instance"""
+        self.do_show("Place " + arg)
+
+    def do_Review_show(self, arg):
+        """Prints the string representation of a Review instance"""
+        self.do_show("Review " + arg)
+
+    def do_show(self, arg):
+        """Prints the string representation of an instance"""
+        if not arg:
+            print("** class name missing **")
+            return
+
+        args = arg.split()
+        class_name = args[0]
+        if class_name in self.classes:
+            if len(args) < 2:
+                print("** instance id missing **")
+                return
+
+            instance_id = args[1]
+            key = f"{class_name}.{instance_id}"
+            if key in storage.all():
+                print(storage.all()[key])
+            else:
+                print("** no instance found **")
         else:
             print("** class doesn't exist **")
 
