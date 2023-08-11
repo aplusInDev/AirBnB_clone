@@ -210,34 +210,29 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-
     def do_State_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        self.do_update("State " + arg)
-
+        """Updates an instance based on the class name and id using a dictionary"""
+        self.do_update_dict('State ' + arg)
 
     def do_City_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        self.do_update("City " + arg)
-
+        """Updates an instance based on the class name and id using a dictionary"""
+        self.do_update_dict('City ' + arg)
 
     def do_Amenity_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        self.do_update("Amenity " + arg)
-
+        """Updates an instance based on the class name and id using a dictionary"""
+        self.do_update_dict('Amenity ' + arg)
 
     def do_Place_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        self.do_update("Place " + arg)
-
+        """Updates an instance based on the class name and id using a dictionary"""
+        self.do_update_dict('Place ' + arg)
 
     def do_Review_update(self, arg):
-        """Updates an instance based on the class name and id"""
-        self.do_update("Review " + arg)
+        """Updates an instance based on the class name and id using a dictionary"""
+        self.do_update_dict('Review ' + arg)
 
 
-    def do_update(self, arg):
-        """Updates an instance based on the class name and id"""
+    def do_update_dict(self, arg):
+        """Updates an instance based on the class name and id using a dictionary"""
         if not arg:
             print("** class name missing **")
             return
@@ -254,17 +249,19 @@ class HBNBCommand(cmd.Cmd):
             if key in storage.all():
                 instance = storage.all()[key]
                 if len(args) < 3:
-                    print("** attribute name missing **")
+                    print("** dictionary missing **")
                     return
 
-                attr_name = args[2]
-                if len(args) < 4:
-                    print("** value missing **")
-                    return
+                try:
+                    update_dict = eval(args[2])
+                    if not isinstance(update_dict, dict):
+                        raise ValueError("Invalid dictionary format")
 
-                attr_value = args[3]
-                setattr(instance, attr_name, attr_value)
-                instance.save()
+                    for key, value in update_dict.items():
+                        setattr(instance, key, value)
+                    instance.save()
+                except (SyntaxError, ValueError):
+                    print("** invalid dictionary format **")
             else:
                 print("** no instance found **")
         else:
