@@ -175,6 +175,35 @@ class HBNBCommand(cmd.Cmd):
                 ]
             )
 
+    def do_State_count(self, arg):
+        """Retrieves the number of State instances"""
+        self.do_count(arg)
+
+    def do_City_count(self, arg):
+        """Retrieves the number of City instances"""
+        self.do_count(arg)
+
+    def do_Place_count(self, arg):
+        """Retrieves the number of Place instances"""
+        self.do_count(arg)
+
+    def do_Review_count(self, arg):
+        """Retrieves the number of Review instances"""
+        self.do_count(arg)
+
+    def do_count(self, arg):
+        """Retrieves the number of instances of a class"""
+        if not arg:
+            print("** class name missing **")
+            return
+
+        class_name = arg.split()[0]
+        if class_name in self.valid_classes:
+            instances = storage.count(class_name)
+            print(instances)
+        else:
+            print("** class doesn't exist **")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
