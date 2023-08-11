@@ -45,3 +45,8 @@ Then Run:
 ```bash
   ./console.py
 ```
+#### Usage/Execution
+
+<img alt="execution1 example" src="./images/air_console1.jpg">
+
+<img alt="execution1 example" src="./images/air_console2.jpg">
