@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class called BaseModel that represents the base
-model for all other classes in the project.
-"""
+model for all other classes in the project."""
 
 import uuid
 import datetime
@@ -10,8 +9,8 @@ import models
 
 class BaseModel():
     """This class defines the attributes and methods for
-    the base model of the project.
-    """
+    the base model of the project."""
+
     def __init__(self, *args: object, **kwargs: object) -> None:
         """This method initializes a new instance of the BaseModel class.
 
@@ -25,8 +24,7 @@ class BaseModel():
             created_at: A datetime object that represents
                 the creation time of the instance.
             updated_at: A datetime object that represents
-                the last update time of the instance.
-        """
+                the last update time of the instance."""
 
         if not kwargs:
             self.id: str = str(uuid.uuid4())
@@ -47,14 +45,12 @@ class BaseModel():
 
         Returns:
             A formatted string with the class name, the id,
-            and the dictionary of the instance.
-        """
+            and the dictionary of the instance."""
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self) -> None:
         """This method updates the updated_at attribute with the current
-        datetime and saves the instance to the storage.
-        """
+        datetime and saves the instance to the storage."""
         self.updated_at = datetime.datetime.now()
         models.storage.save()
 
@@ -66,8 +62,7 @@ class BaseModel():
             A dictionary with all the instance attributes,
             including a key called __class__ with the class
             name as its value, and updated_at and created_at
-            attributes converted from datetime objects to strings.
-        """
+            attributes converted from datetime objects to strings."""
         my_dict = self.__dict__.copy()
         my_dict['__class__'] = type(self).__name__
         my_dict['updated_at'] = self.updated_at.isoformat()
