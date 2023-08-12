@@ -148,8 +148,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-
-def do_count(self, arg):
+  def do_count(self, arg):
     """
     Usage: count <class>
     Retrieve the number of instances of a given class.
@@ -203,8 +202,7 @@ def do_count(self, arg):
         else:
             print("** class doesn't exist **")
 
-
-def default(self, line):
+    def default(self, line):
     """
     Called when command prefix is not recognized.
     Handles special commands like <class name>.all(), <class name>.count(),
