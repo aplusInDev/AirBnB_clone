@@ -74,7 +74,6 @@ class HBNBCommand(cmd.Cmd):
             return
         key = arg_list[0] + "." + arg_list[1]
         try:
-            # print(storage._FileStorage__objects[key])
             print(storage.all()[key])
         except Exception:
             print("** no instance found **")
