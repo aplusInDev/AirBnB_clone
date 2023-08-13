@@ -28,11 +28,10 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review
     }
 
-    def postcmd(self, stop, line):
+    def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
-            print('(hbnb) ', end='')
-        return stop
+            print('(hbnb)')
 
     def do_help(self, arg):
         '''help (usage: help argument) This command print giving argument
