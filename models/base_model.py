@@ -3,7 +3,7 @@
 model for all other classes in the project."""
 
 import uuid
-from datetime import datetime
+import datetime
 import models
 
 
@@ -28,17 +28,26 @@ class BaseModel():
 
         if not kwargs:
             self.id: str = str(uuid.uuid4())
-            self.created_at: datetime = datetime.now()
-            self.updated_at: datetime = datetime.now()
+            self.created_at: datetime.datetime = datetime.datetime.now()
+            self.updated_at: datetime.datetime = datetime.datetime.now()
             models.storage.new(self)
         else:
-            tm_format = '%Y-%m-%dT%H:%M:%S.%f'
-            created_at = datetime.strptime(kwargs['created_at'], tm_format)
-            updated_at = datetime.strptime(kwargs['updated_at'], tm_format)
-            kwargs['created_at'] = created_at
-            kwargs['updated_at'] = updated_at
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    pass
+                elif key in ['updated_at', 'created_at']:
+                    f = '%Y-%m-%dT%H:%M:%S.%f'
+                    setattr(self, key, datetime.datetime.strptime(value, f))
+                else:
+                    setattr(self, key, value)
+
+        """ else:
+            kwargs['updated_at'] = datetime.datetime.strptime(kwargs['updated_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
+            kwargs['created_at'] = datetime.datetime.strptime(kwargs['created_at'],
+                                                     '%Y-%m-%dT%H:%M:%S.%f')
             del kwargs['__class__']
-            self.__dict__.update(kwargs)
+            self.__dict__.update(kwargs) """
 
     def __str__(self) -> str:
         """This method returns a string representation of the instance.
@@ -51,7 +60,7 @@ class BaseModel():
     def save(self) -> None:
         """This method updates the updated_at attribute with the current
         datetime and saves the instance to the storage."""
-        self.updated_at = datetime.now()
+        self.updated_at = datetime.datetime.now()
         models.storage.save()
 
     def to_dict(self) -> dict:
