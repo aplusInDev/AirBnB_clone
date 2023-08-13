@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+This module  contains the entry point of the command interpreter
+"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -12,7 +14,7 @@ from models.__init__ import storage
 
 
 class HBNBCommand(cmd.Cmd):
-
+    """entry point of the command interpreter"""
     prompt = '(hbnb) '
     class_dict = {
         "BaseModel": BaseModel,
@@ -23,7 +25,6 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Review": Review
     }
-    method_list = ["show", "count", "all", "destroy", "update"]
 
     def do_help(self, arg):
         '''help (usage: help argument) This command print giving argument
@@ -40,6 +41,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
+        """emptyline method to escap new line"""
         pass
 
     def do_create(self, arg):
@@ -107,10 +109,13 @@ class HBNBCommand(cmd.Cmd):
                 all_list.append(str(value))
         print(all_list)
 
-    def do_update(self, line):
+    def do_update(self, line, **kwargs):
         '''update command to update giving instance base on giving
         class name and id by adding or updating attribute
         Usage: update <class name> <id> <attribute name> "<attribute value>"'''
+        """ if kwargs:
+            print(type(kwargs))
+            return """
         if not line:
             print("** class name missing **")
             return
@@ -118,15 +123,16 @@ class HBNBCommand(cmd.Cmd):
         try:
             class_name = line_list[0]
             instance_id = line_list[1]
-            new_attr = line_list[2]
-            new_value = line_list[3]
+            if not kwargs:
+                new_attr = line_list[2]
+                new_value = line_list[3]
             try:
                 new_value = eval(new_value)
             except Exception:
                 pass
         except Exception:
             pass
-        if line_list[0] not in HBNBCommand.class_dict:
+        if class_name not in HBNBCommand.class_dict:
             print("** class doesn't exist **")
             return
         if len(line_list) < 2:
@@ -136,22 +142,26 @@ class HBNBCommand(cmd.Cmd):
         if giving_key not in storage.all():
             print("** no instance found **")
             return
-        if len(line_list) < 3:
+        if len(line_list) < 3 and not kwargs:
             print("** attribute name missing **")
             return
-        if len(line_list) < 4:
+        if len(line_list) < 4 and not kwargs:
             print("** value missing **")
-            return
-        if new_attr in ['updated_at', 'created_at']:
             return
         try:
             new_dict = storage.all()[giving_key]
-            new_dict.__dict__.update({new_attr: new_value})
+            if kwargs:
+                new_dict.__dict__.update(kwargs)
+            else:
+                if new_attr in ['updated_at', 'created_at']:
+                    return
+                new_dict.__dict__.update({new_attr: new_value})
             new_dict.save()
         except Exception:
             pass
 
     def count(self, arg):
+        """count method counts giving class instances"""
         counter = 0
         for key in storage.all().keys():
             if key.split(".")[0] == arg:
@@ -159,24 +169,35 @@ class HBNBCommand(cmd.Cmd):
         print(counter)
 
     def default(self, line):
+        """default method manage different command type
+        Usage: <class name>.<class method> """
         if ('.' in line and '(' in line and ')' in line):
             try:
                 class_name = line[: line.find('.')]
                 class_method = line[line.find('.') + 1: line.find('(')]
-                instance_id = line[line.find('(') + 1: line.find(')')]
+                arg_s = line[line.find('(') + 1: line.find(')')]
             except Exception:
                 return
-            instance_id = instance_id.replace('\"', '')
-            arg = class_name + " " + instance_id
+            arg_str = arg_s.replace('\"', '')
+            arg_d = class_name + " " + arg_str
             if class_name in HBNBCommand.class_dict:
                 if class_method == "all":
                     return self.do_all(class_name)
                 if class_method == "count":
                     return self.count(class_name)
                 if class_method == "show":
-                    return self.do_show(arg)
+                    return self.do_show(arg_d)
                 if class_method == "destroy":
-                    return self.do_destroy(arg)
+                    return self.do_destroy(arg_d)
+                if class_method == "update":
+                    if ('{' and '}') in arg_s:
+                        update_id = arg_s[:arg_s.find(',')]
+                        update_id = update_id.replace('\"', '')
+                        key = class_name + " " + update_id
+                        update_dict = eval(arg_s[arg_s.find(',') + 1:])
+                        return self.do_update(key, **update_dict)
+                    update_arg = arg_d.replace(',', '')
+                    return self.do_update(update_arg)
         return super().default(line)
 
 
