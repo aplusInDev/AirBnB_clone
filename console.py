@@ -2,6 +2,7 @@
 """
 This module  contains the entry point of the command interpreter
 """
+import sys
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -27,13 +28,11 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review
     }
 
-    def onecmd(self, line):
-        try:
-            print()
-            return super().onecmd(line)
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            return False
+    def postcmd(self, stop, line):
+        """Prints if isatty is false"""
+        if not sys.__stdin__.isatty():
+            print('(hbnb) ', end='')
+        return stop
 
     def do_help(self, arg):
         '''help (usage: help argument) This command print giving argument
