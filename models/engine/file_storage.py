@@ -11,7 +11,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-
 class FileStorage:
     """A class that handles the file storage of objects"""
 
