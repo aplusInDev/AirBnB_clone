@@ -15,14 +15,12 @@ from models.review import Review
 class FileStorage:
     """A class that handles the file storage of objects"""
 
-    # A private class attribute that represents the path to the JSON file
     __file_path = "file.json"
-    # A private class attribute that stores all objects by <class name>.id
     __objects = {}
 
     def all(self) -> dict:
         """Returns the dictionary __objects"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj) -> None:
         """Sets in __objects the obj with key <obj class name>.id"""
@@ -32,7 +30,8 @@ class FileStorage:
     def save(self) -> None:
         """Serializes __objects to the JSON file (path: __file_path)"""
         save_dict: dict = {}
-        for key, value in self.__objects.items():
+        save_dict.update(FileStorage.__objects)
+        for key, value in save_dict.items():
             save_dict[key] = value.to_dict()
         with open(self.__file_path, "w", encoding="utf-8") as storage:
             json.dump(save_dict, storage)

@@ -31,14 +31,15 @@ class BaseModel():
             self.created_at: datetime.datetime = datetime.datetime.now()
             self.updated_at: datetime.datetime = datetime.datetime.now()
             models.storage.new(self)
-        for key, value in kwargs.items():
-            if key == '__class__':
-                pass
-            elif key in ['updated_at', 'created_at']:
-                f = '%Y-%m-%dT%H:%M:%S.%f'
-                setattr(self, key, datetime.datetime.strptime(value, f))
-            else:
-                setattr(self, key, value)
+        else:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    del kwargs['__class__']
+                elif key in ['updated_at', 'created_at']:
+                    f = '%Y-%m-%dT%H:%M:%S.%f'
+                    setattr(self, key, datetime.datetime.strptime(value, f))
+                else:
+                    setattr(self, key, value)
 
     def __str__(self) -> str:
         """This method returns a string representation of the instance.
