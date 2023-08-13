@@ -10,18 +10,20 @@ from models.amenity import Amenity
 from models.review import Review
 from models.__init__ import storage
 
+
 class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
     class_dict = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "Place": Place,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Review": Review
-            }
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review
+    }
+    method_list = ["show", "count", "all", "destroy", "update"]
 
     def do_help(self, arg):
         '''help (usage: help argument) This command print giving argument
@@ -68,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         key = arg_list[0] + "." + arg_list[1]
         try:
             # print(storage._FileStorage__objects[key])
-             print(storage.all()[key])
+            print(storage.all()[key])
         except Exception:
             print("** no instance found **")
 
@@ -88,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
             return
         key = arg_list[0] + "." + arg_list[1]
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except Exception:
             print("** no instance found **")
@@ -157,21 +159,26 @@ class HBNBCommand(cmd.Cmd):
         print(counter)
 
     def default(self, line):
-        line_list = line.split(".")
-        if len(line_list) == 2:
-            class_name = line_list[0]
-            class_method = line_list[1]
+        if ('.' in line and '(' in line and ')' in line):
+            try:
+                class_name = line[: line.find('.')]
+                class_method = line[line.find('.') + 1: line.find('(')]
+                instance_id = line[line.find('(') + 1: line.find(')')]
+            except Exception:
+                return
+            instance_id = instance_id.replace('\"', '')
+            arg = class_name + " " + instance_id
             if class_name in HBNBCommand.class_dict:
-                if class_method == 'all()':
+                if class_method == "all":
                     return self.do_all(class_name)
-                if class_method == 'count()':
+                if class_method == "count":
                     return self.count(class_name)
-                if ('.' in line and '(' in line and ')' in line):
-                    class_id = line[line.find('(') + 1: line.find(')')]
-                    if class_id:
-                        class_id = class_id.replace('\"', '')
-                        return self.do_show(class_name + " " + class_id)
+                if class_method == "show":
+                    return self.do_show(arg)
+                if class_method == "destroy":
+                    return self.do_destroy(arg)
         return super().default(line)
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
