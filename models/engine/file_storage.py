@@ -15,9 +15,7 @@ from models.review import Review
 class FileStorage:
     """A class that handles the file storage of objects"""
 
-    # A private class attribute that represents the path to the JSON file
     __file_path = "file.json"
-    # A private class attribute that stores all objects by <class name>.id
     __objects = {}
 
     def all(self) -> dict:
