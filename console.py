@@ -36,11 +36,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         '''end of file command to exit the program'''
-        return True
+        print()
+        exit()
 
     def do_quit(self, line):
         '''Quit command to exit the program'''
-        return True
+        exit()
 
     def emptyline(self):
         """emptyline method to escap new line"""
