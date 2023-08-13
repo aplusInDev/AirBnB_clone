@@ -8,5 +8,4 @@ from models.base_model import BaseModel
 class Amenity(BaseModel):
     """A class that inherits from BaseModel and represents an amenity"""
 
-    # A public class attribute that stores the name of the amenity
     name: str = ""
