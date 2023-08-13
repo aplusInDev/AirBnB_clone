@@ -7,18 +7,18 @@ Unittest classes:
     TestAmenityToDict
 """
 import os
-import models
 import unittest
 from datetime import datetime
 from time import sleep
 
+import models
 from models.amenity import Amenity
 
 
 class TestAmenityInstantiation(unittest.TestCase):
     """Test cases for testing instantiation of the Amenity class."""
 
-    def test_instantiates_without_args(self):
+    def test_no_args_instantiates(self):
         self.assertEqual(Amenity, type(Amenity()))
 
     def test_new_instance_stored_in_objects(self):
@@ -39,18 +39,18 @@ class TestAmenityInstantiation(unittest.TestCase):
         self.assertIn("name", dir(Amenity()))
         self.assertNotIn("name", amenity_instance.__dict__)
 
-    def test_unique_ids_for_two_amenities(self):
+    def test_two_amenities_unique_ids(self):
         amenity_instance1 = Amenity()
         amenity_instance2 = Amenity()
         self.assertNotEqual(amenity_instance1.id, amenity_instance2.id)
 
-    def test_different_created_at_for_two_amenities(self):
+    def test_two_amenities_different_created_at(self):
         amenity_instance1 = Amenity()
         sleep(0.05)
         amenity_instance2 = Amenity()
         self.assertLess(amenity_instance1.created_at, amenity_instance2.created_at)
 
-    def test_different_updated_at_for_two_amenities(self):
+    def test_two_amenities_different_updated_at(self):
         amenity_instance1 = Amenity()
         sleep(0.05)
         amenity_instance2 = Amenity()

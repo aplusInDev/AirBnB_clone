@@ -7,61 +7,62 @@ Test classes:
     TestUserToDict
 """
 import os
-import models
 import unittest
 from datetime import datetime
 from time import sleep
+
+import models
 from models.user import User
 
 
 class TestUserInstantiation(unittest.TestCase):
     """Unit tests for User class instantiation."""
 
-    def test_instantiates_without_args(self):
+    def test_no_args_instantiates(self):
         self.assertEqual(User, type(User()))
 
     def test_new_instance_stored_in_objects(self):
         self.assertIn(User(), models.storage.all().values())
 
-    def test_id_is_string(self):
+    def test_id_is_public_str(self):
         self.assertEqual(str, type(User().id))
 
-    def test_created_at_is_datetime(self):
+    def test_created_at_is_public_datetime(self):
         self.assertEqual(datetime, type(User().created_at))
 
-    def test_updated_at_is_datetime(self):
+    def test_updated_at_is_public_datetime(self):
         self.assertEqual(datetime, type(User().updated_at))
 
-    def test_email_is_string(self):
+    def test_email_is_public_str(self):
         self.assertEqual(str, type(User.email))
 
-    def test_password_is_string(self):
+    def test_password_is_public_str(self):
         self.assertEqual(str, type(User.password))
 
-    def test_first_name_is_string(self):
+    def test_first_name_is_public_str(self):
         self.assertEqual(str, type(User.first_name))
 
-    def test_last_name_is_string(self):
+    def test_last_name_is_public_str(self):
         self.assertEqual(str, type(User.last_name))
 
-    def test_unique_ids(self):
+    def test_two_users_unique_ids(self):
         user1 = User()
         user2 = User()
         self.assertNotEqual(user1.id, user2.id)
 
-    def test_different_created_at(self):
+    def test_two_users_different_created_at(self):
         user1 = User()
         sleep(0.05)
         user2 = User()
         self.assertLess(user1.created_at, user2.created_at)
 
-    def test_different_updated_at(self):
+    def test_two_users_different_updated_at(self):
         user1 = User()
         sleep(0.05)
         user2 = User()
         self.assertLess(user1.updated_at, user2.updated_at)
 
-    def test_string_representation(self):
+    def test_str_representation(self):
         dt = datetime.today()
         dt_repr = repr(dt)
         user = User()
@@ -73,7 +74,7 @@ class TestUserInstantiation(unittest.TestCase):
         self.assertIn("'created_at': " + dt_repr, user_str)
         self.assertIn("'updated_at': " + dt_repr, user_str)
 
-    def test_unused_args(self):
+    def test_args_unused(self):
         user = User(None)
         self.assertNotIn(None, user.__dict__.values())
 
@@ -109,14 +110,14 @@ class TestUserSave(unittest.TestCase):
         except IOError:
             pass
 
-    def test_single_save(self):
+    def test_one_save(self):
         user = User()
         sleep(0.05)
         first_updated_at = user.updated_at
         user.save()
         self.assertLess(first_updated_at, user.updated_at)
 
-    def test_multiple_saves(self):
+    def test_two_saves(self):
         user = User()
         sleep(0.05)
         first_updated_at = user.updated_at
@@ -173,10 +174,10 @@ class TestUserToDict(unittest.TestCase):
         user.id = "123456"
         user.created_at = user.updated_at = dt
         tdict = {
-            'id': '123456',
-            '__class__': 'User',
-            'created_at': dt.isoformat(),
-            'updated_at': dt.isoformat(),
+            "id": "123456",
+            "__class__": "User",
+            "created_at": dt.isoformat(),
+            "updated_at": dt.isoformat(),
         }
         self.assertDictEqual(user.to_dict(), tdict)
 
@@ -192,3 +193,4 @@ class TestUserToDict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

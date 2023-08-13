@@ -33,18 +33,18 @@ class TestBaseModelInstantiation(unittest.TestCase):
     def test_updated_at_is_public_datetime(self):
         self.assertEqual(datetime, type(BaseModel().updated_at))
 
-    def test_unique_ids_for_two_models(self):
+    def test_two_models_unique_ids(self):
         model1 = BaseModel()
         model2 = BaseModel()
         self.assertNotEqual(model1.id, model2.id)
 
-    def test_different_created_at_for_two_models(self):
+    def test_two_models_different_created_at(self):
         model1 = BaseModel()
         sleep(0.05)
         model2 = BaseModel()
         self.assertLess(model1.created_at, model2.created_at)
 
-    def test_different_updated_at_for_two_models(self):
+    def test_two_models_different_updated_at(self):
         model1 = BaseModel()
         sleep(0.05)
         model2 = BaseModel()
@@ -90,14 +90,12 @@ class TestBaseModelInstantiation(unittest.TestCase):
 class TestBaseModelSave(unittest.TestCase):
     """Test cases for BaseModel class save method."""
 
-    @classmethod
     def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    @classmethod
     def tearDown(self):
         try:
             os.remove("file.json")
@@ -108,14 +106,14 @@ class TestBaseModelSave(unittest.TestCase):
         except IOError:
             pass
 
-    def test_single_save(self):
+    def test_one_save(self):
         model = BaseModel()
         sleep(0.05)
         first_updated_at = model.updated_at
         model.save()
         self.assertLess(first_updated_at, model.updated_at)
 
-    def test_multiple_saves(self):
+    def test_two_saves(self):
         model = BaseModel()
         sleep(0.05)
         first_updated_at = model.updated_at

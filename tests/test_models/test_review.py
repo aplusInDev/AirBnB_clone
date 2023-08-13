@@ -18,51 +18,51 @@ from models.review import Review
 class TestReviewInstantiation(unittest.TestCase):
     """Unit tests for instantiating the Review class."""
 
-    def test_instantiates_with_no_args(self):
+    def test_no_args_instantiates(self):
         self.assertEqual(Review, type(Review()))
 
-    def test_stored_in_objects(self):
+    def test_new_instance_stored_in_objects(self):
         self.assertIn(Review(), models.storage.all().values())
 
-    def test_id_is_string(self):
+    def test_id_is_public_str(self):
         self.assertEqual(str, type(Review().id))
 
-    def test_created_at_is_datetime(self):
+    def test_created_at_is_public_datetime(self):
         self.assertEqual(datetime, type(Review().created_at))
 
-    def test_updated_at_is_datetime(self):
+    def test_updated_at_is_public_datetime(self):
         self.assertEqual(datetime, type(Review().updated_at))
 
-    def test_place_id_is_class_attr(self):
+    def test_place_id_is_public_class_attribute(self):
         review_inst = Review()
         self.assertEqual(str, type(Review.place_id))
         self.assertIn("place_id", dir(review_inst))
         self.assertNotIn("place_id", review_inst.__dict__)
 
-    def test_user_id_is_class_attr(self):
+    def test_user_id_is_public_class_attribute(self):
         review_inst = Review()
         self.assertEqual(str, type(Review.user_id))
         self.assertIn("user_id", dir(review_inst))
         self.assertNotIn("user_id", review_inst.__dict__)
 
-    def test_text_is_class_attr(self):
+    def test_text_is_public_class_attribute(self):
         review_inst = Review()
         self.assertEqual(str, type(Review.text))
         self.assertIn("text", dir(review_inst))
         self.assertNotIn("text", review_inst.__dict__)
 
-    def test_unique_ids(self):
+    def test_two_reviews_unique_ids(self):
         review_inst1 = Review()
         review_inst2 = Review()
         self.assertNotEqual(review_inst1.id, review_inst2.id)
 
-    def test_diff_created_at(self):
+    def test_two_reviews_different_created_at(self):
         review_inst1 = Review()
         sleep(0.05)
         review_inst2 = Review()
         self.assertLess(review_inst1.created_at, review_inst2.created_at)
 
-    def test_diff_updated_at(self):
+    def test_two_reviews_different_updated_at(self):
         review_inst1 = Review()
         sleep(0.05)
         review_inst2 = Review()
@@ -80,7 +80,7 @@ class TestReviewInstantiation(unittest.TestCase):
         self.assertIn("'created_at': " + dt_repr, review_inststr)
         self.assertIn("'updated_at': " + dt_repr, review_inststr)
 
-    def test_unused_args(self):
+    def test_args_unused(self):
         review_inst = Review(None)
         self.assertNotIn(None, review_inst.__dict__.values())
 
@@ -134,7 +134,7 @@ class TestReviewSave(unittest.TestCase):
         review_inst.save()
         self.assertLess(second_updated_at, review_inst.updated_at)
 
-    def test_save_with_arg_raises_error(self):
+    def test_save_with_arg(self):
         review_inst = Review()
         with self.assertRaises(TypeError):
             review_inst.save(None)
@@ -167,7 +167,7 @@ class TestReviewToDict(unittest.TestCase):
         self.assertEqual("Holberton", review_inst.middle_name)
         self.assertIn("my_number", review_inst.to_dict())
 
-    def test_to_dict_datetime_attrs_are_strings(self):
+    def test_to_dict_datetime_attributes_are_strs(self):
         review_inst = Review()
         review_inst_dict = review_inst.to_dict()
         self.assertEqual(str, type(review_inst_dict["id"]))
@@ -187,11 +187,11 @@ class TestReviewToDict(unittest.TestCase):
         }
         self.assertDictEqual(review_inst.to_dict(), tdict)
 
-    def test_diff_to_dict_and_instance_dict(self):
+    def test_contrast_to_dict_dunder_dict(self):
         review_inst = Review()
         self.assertNotEqual(review_inst.to_dict(), review_inst.__dict__)
 
-    def test_to_dict_with_arg_raises_error(self):
+    def test_to_dict_with_arg(self):
         review_inst = Review()
         with self.assertRaises(TypeError):
             review_inst.to_dict(None)

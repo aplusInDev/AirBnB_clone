@@ -5,38 +5,39 @@ Test classes:
     TestFileStorageInstantiation
     TestFileStorageMethods
 """
-import os
 import json
-import models
+import os
 import unittest
 from datetime import datetime
-from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
-from models.user import User
-from models.state import State
-from models.place import Place
-from models.city import City
+
+import models
 from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.engine.file_storage import FileStorage
+from models.place import Place
 from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class TestFileStorageInstantiation(unittest.TestCase):
     """Unit tests for FileStorage class instantiation."""
 
-    def test_instantiates_without_args(self):
+    def test_FileStorage_instantiation_no_args(self):
         self.assertEqual(type(FileStorage()), FileStorage)
 
-    def test_instantiates_with_arg_raises_error(self):
+    def test_FileStorage_instantiation_with_arg(self):
         with self.assertRaises(TypeError):
             FileStorage(None)
 
-    def test_file_path_is_private_str(self):
+    def test_FileStorage_file_path_is_private_str(self):
         self.assertEqual(str, type(FileStorage._FileStorage__file_path))
 
-    def test_objects_is_private_dict(self):
+    def testFileStorage_objects_is_private_dict(self):
         self.assertEqual(dict, type(FileStorage._FileStorage__objects))
 
-    def test_storage_initialized(self):
+    def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
 
 
@@ -60,14 +61,14 @@ class TestFileStorageMethods(unittest.TestCase):
             pass
         FileStorage._FileStorage__objects = {}
 
-    def test_all_returns_dict(self):
+    def test_all(self):
         self.assertEqual(dict, type(models.storage.all()))
 
-    def test_all_with_arg_raises_error(self):
+    def test_all_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.all(None)
 
-    def test_new_adds_objects(self):
+    def test_new(self):
         base_model = BaseModel()
         user = User()
         state = State()
@@ -97,11 +98,11 @@ class TestFileStorageMethods(unittest.TestCase):
         self.assertIn("Review." + review.id, models.storage.all().keys())
         self.assertIn(review, models.storage.all().values())
 
-    def test_new_adds_objects_with_args(self):
+    def test_new_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.new(BaseModel(), 1)
 
-    def test_new_adds_objects_with_None(self):
+    def test_new_with_None(self):
         with self.assertRaises(AttributeError):
             models.storage.new(None)
 
@@ -172,3 +173,4 @@ class TestFileStorageMethods(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
