@@ -15,6 +15,7 @@ from models.__init__ import storage
 
 class HBNBCommand(cmd.Cmd):
     """entry point of the command interpreter"""
+
     prompt = '(hbnb) '
     class_dict = {
         "BaseModel": BaseModel,
@@ -25,6 +26,14 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Review": Review
     }
+
+    def onecmd(self, line):
+        try:
+            print()
+            return super().onecmd(line)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return False
 
     def do_help(self, arg):
         '''help (usage: help argument) This command print giving argument
