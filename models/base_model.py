@@ -46,8 +46,7 @@ class BaseModel():
         Returns:
             A formatted string with the class name, the id,
             and the dictionary of the instance."""
-        return "[{}] ({}) {}".format(type(self).__name__,
-                                     self.id, self.__dict__)
+        return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self) -> None:
         """This method updates the updated_at attribute with the current
