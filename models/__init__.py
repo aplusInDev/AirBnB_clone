@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-"""init file for modules package that create an instance of FileStorage class
-and call the reload method to deserialize the JSON file to objects"""
-
+"""This module instantiates an object of class FileStorage"""
 from models.engine.file_storage import FileStorage
 
-storage: FileStorage = FileStorage()
+
+storage = FileStorage()
 storage.reload()
