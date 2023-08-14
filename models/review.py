@@ -1,10 +1,13 @@
-#!/usr/bin/python3
-""" Review module for the HBNB project """
+#!/usr/bin/env python3
+"""This module defines a class called Review
+that inherits from BaseModel and represents a review"""
+
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """ Review classto store review information """
-    place_id = ""
-    user_id = ""
-    text = ""
+    """A class that inherits from BaseModel and represents a review"""
+
+    place_id: str = ""
+    user_id: str = ""
+    text: str = ""
