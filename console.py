@@ -115,9 +115,7 @@ class HBNBCommand(cmd.Cmd):
         '''update command to update giving instance base on giving
         class name and id by adding or updating attribute
         Usage: update <class name> <id> <attribute name> "<attribute value>"'''
-        """ if kwargs:
-            print(type(kwargs))
-            return """
+
         if not line:
             print("** class name missing **")
             return
