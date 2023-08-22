@@ -3,25 +3,19 @@
     background: white;
     height: 70px;
     width: 100%;
-    border: 1px solid #DDDDDD;
+    border: 1px solid hsl(0, 0%, 87%);
     border-radius: 4px;
     display: flex;
     align-items: center;
 }
 @media (max-width: 768px) {
-    .filters > .locations,
-    .filters > .amenities {
-        display: none;
-    }
     .filters {
-        margin: auto 10px;
+        height: max-content;
+        margin: 10px;
+        border: none;
     }
 }
-@media (max-width: 992px) {
-    .filters > .locations,
-    .filters > .amenities {
-        display: none;
-    }
+@media (min-width: 769px) and (max-width: 992px) {
     .filters {
         margin: auto 10px;
     }
@@ -29,9 +23,8 @@
 .filters > button {
     position: absolute;
     font-size: 18px;
-    background: #FF5A5F;
-    /* color: #FFFFFF; */
-    color: #000000bb;
+    background: #000;
+    color: #ffffff;
     height: 48px;
     width: 20%;
     border-style: none;
@@ -41,6 +34,13 @@
     text-align: center;
     line-height: 48px;
     right: 0;
+}
+@media (max-width: 768px) {
+    .filters > button {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
 }
 .filters > button:hover {
     opacity: 90%;
@@ -53,6 +53,17 @@
     padding-left: 60px;
     line-height: 0%;
     z-index: 1;
+}
+@media (max-width: 768px) {
+    .locations,
+    .amenities {
+        margin-bottom: 50px;
+        width: 50%;
+        border: #DDDDDD solid 1px;
+        border-radius: 4px;
+        padding-left: 10px;
+        align-self: center;
+    }
 }
 .locations {
     border-right: #DDDDDD solid 1px;
@@ -80,6 +91,14 @@
     box-sizing: border-box;
     padding-bottom: 25px;
     text-align: justify;
+    z-index: inherit;
+}
+@media (max-width: 768px) {
+    .locations > .popover,
+    .amenities > .popover {
+        transform: translateY(-12px);
+        margin-left: -10px;
+    }
 }
 ul {
     list-style: none;
