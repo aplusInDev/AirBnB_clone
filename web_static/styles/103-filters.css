@@ -64,6 +64,9 @@
         padding-left: 10px;
         align-self: center;
     }
+    .locations {
+        margin-right: 2px;
+    }
 }
 .locations {
     border-right: #DDDDDD solid 1px;

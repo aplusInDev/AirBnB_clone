@@ -64,6 +64,9 @@
         padding-left: 10px;
         align-self: center;
     }
+    .locations {
+        margin-right: 2px;
+    }
 }
 .locations {
     border-right: #DDDDDD solid 1px;
@@ -87,7 +90,6 @@
     position: absolute;
     transform: translate(-60px, -8px);
     width: 100%;
-    height: max-content;
     box-sizing: border-box;
     padding-bottom: 25px;
     text-align: justify;
@@ -98,6 +100,11 @@
     .amenities > .popover {
         transform: translateY(-12px);
         margin-left: -10px;
+        height: 300px;
+    }
+    .locations .popover > :nth-child(2){
+        position: absolute;
+        width: 100%;
     }
 }
 ul {
