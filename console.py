@@ -102,13 +102,18 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         '''all command that show all giving class instances
         Usage: all <class name>'''
-        if not line or line not in HBNBCommand.class_dict:
-            print("** class doesn't exist **")
-            return
         all_list = []
-        for key, value in storage.all().items():
-            if line == key.split(".")[0]:
+        if line:
+            if line not in HBNBCommand.class_dict:
+                print("** class doesn't exist **")
+                return
+            for key, value in storage.all().items():
+                if line == key.split(".")[0]:
+                    all_list.append(str(value))
+        else:
+            for key, value in storage.all().items():
                 all_list.append(str(value))
+                pass
         print(all_list)
 
     def do_update(self, line, **kwargs):
