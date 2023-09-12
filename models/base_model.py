@@ -67,4 +67,4 @@ class BaseModel():
         my_dict['__class__'] = str(type(self).__name__)
         my_dict['updated_at'] = str(self.updated_at.isoformat())
         my_dict['created_at'] = str(self.created_at.isoformat())
-        return my_dict
+        return str(my_dict)
