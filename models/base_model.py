@@ -64,7 +64,7 @@ class BaseModel():
             name as its value, and updated_at and created_at
             attributes converted from datetime objects to strings."""
         my_dict = self.__dict__.copy()
-        my_dict['__class__'] = type(self).__name__
+        my_dict['__class__'] = str(type(self).__name__)
         my_dict['updated_at'] = str(self.updated_at.isoformat())
         my_dict['created_at'] = str(self.created_at.isoformat())
         return str(my_dict)
