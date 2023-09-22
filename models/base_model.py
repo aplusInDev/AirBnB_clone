@@ -63,10 +63,8 @@ class BaseModel():
             including a key called __class__ with the class
             name as its value, and updated_at and created_at
             attributes converted from datetime objects to strings."""
-        todict = dict(self.__dict__)
-        todict["__class__"] = self.__class__.__name__
-        if not isinstance(todict["created_at"], str):
-            todict["created_at"] = todict["created_at"].isoformat()
-        if not isinstance(todict["updated_at"], str):
-            todict["updated_at"] = todict["updated_at"].isoformat()
-        return todict
+        my_dict = self.__dict__.copy()
+        my_dict['__class__'] = type(self).__name__
+        my_dict['updated_at'] = self.updated_at.isoformat()
+        my_dict['created_at'] = self.created_at.isoformat()
+        return my_dict
