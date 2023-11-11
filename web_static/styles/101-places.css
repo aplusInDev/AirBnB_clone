@@ -110,16 +110,16 @@ article > .amenities > h2 {
     margin-left: 60px;
     padding-top: 5px;
 }
-.amenities ul > :first-child {
+article .amenities ul > :first-child {
     background-image: url("../images/icon_wifi.png");
 }
-.amenities ul > :nth-child(2) {
+article .amenities ul > :nth-child(2) {
     background-image: url("../images/icon_tv.png");
 }
-.amenities ul > :nth-child(3) {
+article .amenities ul > :nth-child(3) {
     background-image: url("../images/icon_pets.png");
 }
-.amenities ul > :nth-child(4) {
+article .amenities ul > :nth-child(4) {
     background-image: url("../images/icon_kitchen.png");
 }
 .reviews p {
