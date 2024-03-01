@@ -151,17 +151,25 @@ class HBNBCommand(cmd.Cmd):
                 except ImportError:
                     print("** class doesn't exist **")
 
-    def do_count(self, arg):
-        """Counts instances of a class"""
-        try:
-            all_objs = storage.all()
-            count = 0
-            for key in all_objs.keys():
-                if arg in key:
-                    count += 1
-            print(count)
-        except ImportError:
-            print("** class doesn't exist **")
+    # def do_count(self, arg):
+    #     """Counts instances of a class"""
+    #     try:
+    #         all_objs = storage.all()
+    #         count = 0
+    #         for key in all_objs.keys():
+    #             if arg in key:
+    #                 count += 1
+    #         print(count)
+    #     except ImportError:
+    #         print("** class doesn't exist **")
+
+    def count(self, arg):
+        """count method counts giving class instances"""
+        counter = 0
+        for key in storage.all().keys():
+            if key.split(".")[0] == arg:
+                counter += 1
+        print(counter)
 
     def default(self, line):
         """ Default method """
