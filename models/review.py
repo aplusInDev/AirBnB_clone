@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
-"""This module defines a class called Review
-that inherits from BaseModel and represents a review"""
-
+#!/usr/bin/python3
+"""This module contains the Review class for the AirBnB clone"""
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """A class that inherits from BaseModel and represents a review"""
-
-    place_id: str = ""
-    user_id: str = ""
-    text: str = ""
+    """This class inherits from BaseModel"""
+    place_id = ""
+    user_id = ""
+    text = ""

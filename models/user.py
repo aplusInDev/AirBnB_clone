@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
-"""This module defines a class called User
-that inherits from BaseModel and represents a user"""
-
+#!/usr/bin/python3
+"""This module contains the User class for the AirBnB clone"""
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """A class that inherits from BaseModel and represents a user"""
-
-    email: str = ""
-    password: str = ""
-    first_name: str = ""
-    last_name: str = ""
+    """This class inherits from BaseModel"""
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""

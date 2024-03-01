@@ -1,12 +1,9 @@
 #!/usr/bin/python3
-"""This module defines a class called City
-that inherits from BaseModel and represents a city"""
-
+"""This module contains the City class for the AirBnB clone"""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """A class that inherits from BaseModel and represents a city"""
-
-    state_id: str = ""
-    name: str = ""
+    """This class inherits from BaseModel"""
+    state_id = ""
+    name = ""
