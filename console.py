@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: all <class name>'''
         all_list = []
         if line:
-            if line not in HBNBCommand.class_dict:
+            if line not in HBNBCommand.classes_list:
                 print("** class doesn't exist **")
                 return
             for key, value in storage.all().items():
