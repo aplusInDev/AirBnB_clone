@@ -125,23 +125,6 @@ class HBNBCommand(cmd.Cmd):
                 all_list.append(str(value))
         print(all_list)
 
-    # def do_all(self, line):
-    #     '''all command that show all giving class instances
-    #     Usage: all <class name>'''
-    #     all_list = []
-    #     if line:
-    #         if line not in HBNBCommand.classes_list:
-    #             print("** class doesn't exist **")
-    #             return
-    #         for key, value in storage.all().items():
-    #             if line == key.split(".")[0]:
-    #                 all_list.append(str(value))
-    #     else:
-    #         for key, value in storage.all().items():
-    #             all_list.append(str(value))
-    #             pass
-    #     print(all_list)
-
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding or
         updating attribute (save the change into the JSON file)"""
