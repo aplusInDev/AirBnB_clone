@@ -108,35 +108,39 @@ class HBNBCommand(cmd.Cmd):
                 except ImportError:
                     print("** class doesn't exist **")
 
-    # def do_all(self, arg):
-    #     """ Prints all string representation of all instances based
-    #     """
-
-    #     if arg and arg in HBNBCommand.classes_list:
-    #         class_name = eval(arg)
-    #         for key, value in storage.all().items():
-    #             if value.__class__ == class_name:
-    #                 print(value)
-    #     elif arg:
-    #         print("** class doesn't exist **")
-    #         return None
-
-    def do_all(self, line):
-        '''all command that show all giving class instances
-        Usage: all <class name>'''
+    def do_all(self, arg):
+        """ Prints all string representation of all instances based
+        """
         all_list = []
-        if line:
-            if line not in HBNBCommand.classes_list:
-                print("** class doesn't exist **")
-                return
-            for key, value in storage.all().items():
-                if line == key.split(".")[0]:
+        if arg and arg in HBNBCommand.classes_list:
+            class_name = eval(arg)
+            for value in storage.all().values():
+                if value.__class__ == class_name:
                     all_list.append(str(value))
+        elif arg:
+            print("** class doesn't exist **")
+            return
         else:
-            for key, value in storage.all().items():
+            for value in storage.all().values():
                 all_list.append(str(value))
-                pass
         print(all_list)
+
+    # def do_all(self, line):
+    #     '''all command that show all giving class instances
+    #     Usage: all <class name>'''
+    #     all_list = []
+    #     if line:
+    #         if line not in HBNBCommand.classes_list:
+    #             print("** class doesn't exist **")
+    #             return
+    #         for key, value in storage.all().items():
+    #             if line == key.split(".")[0]:
+    #                 all_list.append(str(value))
+    #     else:
+    #         for key, value in storage.all().items():
+    #             all_list.append(str(value))
+    #             pass
+    #     print(all_list)
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding or
