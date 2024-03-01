@@ -90,8 +90,10 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
         self.assertEqual(base_dict['id'], self.place.id)
-        self.assertEqual(base_dict['created_at'], self.place.created_at.isoformat())
-        self.assertEqual(base_dict['updated_at'], self.place.updated_at.isoformat())
+        self.assertEqual(base_dict['created_at'],
+                         self.place.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.place.updated_at.isoformat())
         self.assertEqual(base_dict['__class__'], 'Place')
         self.assertEqual(self.place.__class__.__name__, 'Place')
 

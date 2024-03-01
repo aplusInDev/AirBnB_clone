@@ -73,7 +73,8 @@ class TestReview(unittest.TestCase):
         """Test for correct __str__ output"""
         self.review.name = "Holberton"
         self.review.my_number = 89
-        string = "[Review] ({}) {}".format(self.review.id, self.review.__dict__)
+        string = "[Review] ({}) {}".format(self.review.id,
+                                           self.review.__dict__)
         self.assertEqual(str(self.review), string)
 
     def test_save_method(self):
@@ -90,8 +91,10 @@ class TestReview(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
         self.assertEqual(base_dict['id'], self.review.id)
-        self.assertEqual(base_dict['created_at'], self.review.created_at.isoformat())
-        self.assertEqual(base_dict['updated_at'], self.review.updated_at.isoformat())
+        self.assertEqual(base_dict['created_at'],
+                         self.review.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.review.updated_at.isoformat())
         self.assertEqual(base_dict['__class__'], 'Review')
         self.assertEqual(self.review.__class__.__name__, 'Review')
 

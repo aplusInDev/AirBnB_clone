@@ -73,7 +73,8 @@ class TestAmenity(unittest.TestCase):
         """Test for correct __str__ output"""
         self.amenity.name = "Holberton"
         self.amenity.my_number = 89
-        string = "[Amenity] ({}) {}".format(self.amenity.id, self.amenity.__dict__)
+        string = "[Amenity] ({}) {}".format(self.amenity.id,
+                                            self.amenity.__dict__)
         self.assertEqual(str(self.amenity), string)
 
     def test_save_method(self):
@@ -90,8 +91,10 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
         self.assertEqual(base_dict['id'], self.amenity.id)
-        self.assertEqual(base_dict['created_at'], self.amenity.created_at.isoformat())
-        self.assertEqual(base_dict['updated_at'], self.amenity.updated_at.isoformat())
+        self.assertEqual(base_dict['created_at'],
+                         self.amenity.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.amenity.updated_at.isoformat())
         self.assertEqual(base_dict['__class__'], 'Amenity')
         self.assertEqual(self.amenity.__class__.__name__, 'Amenity')
 

@@ -90,8 +90,10 @@ class TestCity(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
         self.assertEqual(base_dict['id'], self.city.id)
-        self.assertEqual(base_dict['created_at'], self.city.created_at.isoformat())
-        self.assertEqual(base_dict['updated_at'], self.city.updated_at.isoformat())
+        self.assertEqual(base_dict['created_at'],
+                         self.city.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.city.updated_at.isoformat())
         self.assertEqual(base_dict['__class__'], 'City')
         self.assertEqual(self.city.__class__.__name__, 'City')
 
